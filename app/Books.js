@@ -73,7 +73,6 @@ class Books extends React.Component {
     if (this.props.data.allBooks) {
       books = this.props.data.allBooks
     }
-    console.log('props:', this.props)
     return (
       <ScrollView>
         { loading && <ActivityIndicator style={{ marginTop: 250 }} />}

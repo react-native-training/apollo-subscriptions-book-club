@@ -14,7 +14,6 @@ export default class Book extends React.Component {
   }
   render() {
     const { image, author, title, description, rating } = this.props.navigation.state.params.book;
-    console.log('book:', this.props.navigation.state.params.book)
     return (
       <ScrollView style={styles.container}>
         {
