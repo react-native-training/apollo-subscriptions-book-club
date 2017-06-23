@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  View,
   Text,
   StyleSheet,
   Image,
+  ScrollView,
   ActivityIndicator,
 } from 'react-native';
 
@@ -17,7 +17,6 @@ const MyQuery = gql`query {
   allBooks {
     rating
     author
-    title
     image
     description
     title
@@ -32,10 +31,10 @@ const BOOKS_SUBSCRIPTION = gql`
         node {
           rating
           author
-          title
           image
           description
           title
+          createdAt
         }
       }
     }
@@ -53,41 +52,30 @@ class Books extends React.Component {
   static navigationOptions = {
     headerTitle: <Header />
   }
-  state = {
-    books: [],
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.data && nextProps.data.allBooks.length) {
-      this.setState({
-        books: nextProps.data.allBooks
-      })
-    }
-  }
   componentWillMount() {
-    // console.log('props:', this.props)
     this.props.data.subscribeToMore({
       document: BOOKS_SUBSCRIPTION,
       updateQuery: (prev, {subscriptionData}) => {
-        console.log('prev:', prev)
-        console.log('subscriptionData:', subscriptionData)
-        // console.log('subscription:', subscription)
         if (!subscriptionData) {
-            return prev;
+          return prev;
         }
         const { node } = subscriptionData.data.Book
-        this.setState({
-          books: [...this.state.books, node]
-        })
+        return {
+          ...prev,
+          allBooks: [...prev.allBooks, node],
+        }
       }
     })
   }
   render() {
-    console.log('data:', this.props.data)
-    console.log('state:', this.state)
     const { loading } = this.props.data;
-    const { books } = this.state;
+    let books = [];
+    if (this.props.data.allBooks) {
+      books = this.props.data.allBooks
+    }
+    console.log('props:', this.props)
     return (
-      <View>
+      <ScrollView>
         { loading && <ActivityIndicator style={{ marginTop: 250 }} />}
         {
           books.map((book, index) => {
@@ -100,33 +88,10 @@ class Books extends React.Component {
             )
           })
         }
-      </View>
+      </ScrollView>
     )
   }
 }
-
-// const gqlArgs = {
-//   props: props => {
-//     return {
-//       subscribeToNewComments: params => {
-//           return props.allBooks.subscribeToMore({
-//               document: BOOKS_SUBSCRIPTION,
-//               updateQuery: (prev, {subscriptionData}) => {
-//                   if (!subscriptionData.data) {
-//                       return prev;
-//                   }
-//                   const newFeedItem = subscriptionData.data.bookAdded;
-//                   return Object.assign({}, prev, {
-//                       entry: {
-//                           allBooks: [newFeedItem, ...prev.entry.allBooks]
-//                       }
-//                   });
-//               }
-//           });
-//         }
-//     }
-//   }
-// }
 
 const GQLBooks = graphql(MyQuery)(Books);
 

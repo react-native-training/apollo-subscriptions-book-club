@@ -75,13 +75,9 @@ class AddBook extends React.Component {
 }
 
 const addBookMutation = gql`
-  mutation addNewBook($title: String!, $author: String, $description: String, $rating: Int, $image: String) {
+  mutation createBook($title: String!, $author: String, $description: String, $rating: Int, $image: String) {
     createBook(title: $title, author: $author, description: $description, rating: $rating, image: $image) {
-      title
-      author
-      description
-      rating
-      image
+      createdAt
     }
   }
 `
@@ -89,7 +85,7 @@ const addBookMutation = gql`
 
 export default compose(
   graphql(addBookMutation, {
-    name : 'addBookMutation'
+    name : 'addBookMutation',
   })
 )(AddBook)
 
