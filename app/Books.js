@@ -13,7 +13,7 @@ import { ListItem } from 'react-native-elements';
 
 import Book from './Book';
 
-const MyQuery = gql`query {
+const MYQUERY = gql`query {
   allBooks {
     rating
     author
@@ -34,7 +34,6 @@ const BOOKS_SUBSCRIPTION = gql`
           image
           description
           title
-          createdAt
         }
       }
     }
@@ -92,7 +91,7 @@ class Books extends React.Component {
   }
 }
 
-const GQLBooks = graphql(MyQuery)(Books);
+const GQLBooks = graphql(MYQUERY)(Books);
 
 const RouteConfig = {
   Books: { screen: GQLBooks },

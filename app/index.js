@@ -6,12 +6,12 @@ import {
 import { ApolloProvider, ApolloClient, createNetworkInterface } from 'react-apollo';
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 
-const wsClient = new SubscriptionClient(`YOURWEBSOCKETURI`, {
+const wsClient = new SubscriptionClient(`wss://subscriptions.graph.cool/v1/YOURWEBSOCKETURI`, {
   reconnect: true
 });
 
 const networkInterface = createNetworkInterface({
-  uri: `YOURMAINURI`
+  uri: `https://api.graph.cool/simple/v1/YOURWEBSOCKETURI`
 });
 
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
