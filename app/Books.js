@@ -98,6 +98,4 @@ const RouteConfig = {
   Book: { screen: Book },
 }
 
-const BooksNav = StackNavigator(RouteConfig);
-
-export default BooksNav;
+export default StackNavigator(RouteConfig);
