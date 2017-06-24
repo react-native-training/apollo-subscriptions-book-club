@@ -37,6 +37,8 @@ graphcool init --schema ./schema.graphql --name BookClub
 
 From the terminal output, you need to grab the project ID and use it in the next step. This ID is also available in the generated [project file](https://www.graph.cool/docs/reference/cli/project-files-ow2yei7mew/) `project.graphcool`.
 
+![](http://imgur.com/fp5zsPN.png)
+
 > **Note:** If you need to find out the available endpoints for your project, you can simply use the `graphcool endpoints` command (in the directory where `project.graphcool` is located) or grab them from the [Graphcool Console](https://console.graph.cool).
 
 6. Configure endpoints
