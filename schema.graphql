@@ -1,0 +1,7 @@
+type Book {
+  author: String
+  description: String
+  image: String
+  rating: Int
+  title: String!
+}
