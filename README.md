@@ -19,7 +19,7 @@ cd apollo-subscriptions-book-club
 3. Install dependencies   
 
 ```
-yarn install
+yarn
 # or npm install
 ```
 
